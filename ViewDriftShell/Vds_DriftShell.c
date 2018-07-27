@@ -208,6 +208,7 @@ void CreateFieldLinesAndDriftShells( char *Filename, Vds_ObjectInfo *ObjInfo ){
     ReadMagEphemInfoStruct( Filename, &ObjInfo->nPitchAngles, ObjInfo->MagEphemInfo );
     printf( "\t     Date/Time: %ld/%g\n", ObjInfo->MagEphemInfo->Date, ObjInfo->MagEphemInfo->UTC );
     printf( "\t# Pitch Angles: %d\n", ObjInfo->MagEphemInfo->nAlpha );
+if (1==1){
 //return;
 
 printf("%d %d %d\n", ObjInfo->nPitchAngles, ObjInfo->MagEphemInfo->nShellPoints[0], ObjInfo->MagEphemInfo->nFieldPnts[0][0]);
@@ -255,6 +256,9 @@ int kk;
 
     MakeFieldLines( 80, ObjInfo ); // FIX -- The 80 should be user setable.
     MakeDriftShellMesh( ObjInfo ); // FIX -- Should be able to control number of points.
+}
+
+
 
 }
 
@@ -742,6 +746,8 @@ MakeTube( ObjInfo->x_gsm[i][ns], ObjInfo->y_gsm[i][ns], ObjInfo->z_gsm[i][ns], O
 
 
                 // Field Lines
+//printf("ObjInfo->nFieldPoints[i] = %d\n", ObjInfo->nFieldPoints[i]);
+//exit(0);
                 MakeTube( ObjInfo->x3_gsm[i][ns], ObjInfo->y3_gsm[i][ns], ObjInfo->z3_gsm[i][ns], ObjInfo->nFieldPoints[i], 12, 0.0375/2.0 );
 
 
@@ -786,9 +792,9 @@ void ReGenerateFieldLineLists( Vds_ObjectInfo *ObjInfo ){
 void GenerateMiscFieldLineLists( Vds_ObjectInfo *ObjInfo ){
 
     double  x, y, z;
-    int     i, j, ns, Gap, Flag, Type;
+    int     i, j, Gap, Type;
     char    Line[128];
-    char    Line2[128];
+    //char    Line2[128];
     FILE    *fp;
 
     fp = fopen( "/home/mgh//git/LanlGeoMag/Examples/Trace/FieldLines.txt", "r" );
@@ -798,8 +804,8 @@ LGM_ARRAY_2D( ObjInfo->x5_gsm,   2000, 2000, double );
 LGM_ARRAY_2D( ObjInfo->y5_gsm,   2000, 2000, double );
 LGM_ARRAY_2D( ObjInfo->z5_gsm,   2000, 2000, double );
 
-    j = -1; i = 0; Flag = 0;
-    while ( fgets( Line, 80, fp ) != EOF ) {
+    j = -1; i = 0; 
+    while ( fgets( Line, 80, fp ) != NULL ) {
 
         if ( Line[0] == '\0' ) {
             break;
